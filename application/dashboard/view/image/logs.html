@@ -1,0 +1,55 @@
+{@extend name="base" /@}
+{@block name="title"@}系统设置{@/block@}
+{@block name="js"@}
+<script src="__JS__layer/layer.js"></script>
+{@/block@}
+{@block name="content"@}
+<!-- main content start-->
+<div id="page-wrapper">
+	<div class="main-page">
+		<div class="forms">
+			<div class=" form-grids row">
+				<div class="widget-shadow "> 
+					<div class="form-title" style="background-color:#fff;">
+						<h4>构建日志</h4>
+					</div>
+					<div class="col-md-12 blank-page widget-shadow scroll">
+						<div class="col-md-12 blank-page " >
+							<pre id="code" class="widget-shadow scroll" style="background-color:#101829;color:#fff;">加载中</pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	function ajax(){
+		var num = $(".widuu_code").last().attr('data-id');
+		var data_id = num ? num : 0;
+
+		$.ajax({
+			type : 'POST',
+   			url  : '{@:url("/image/logs")@}',
+   			data : {name:'{@$name@}',tag:'{@$tag@}',num:data_id},
+   			dataType : 'json',
+   			success : function(data){
+   				if( data.status ){
+   					console.log(data);
+   					var last = parseInt(data.num)-1;
+   					if(data.flag) clearInterval(int);
+   					if( $('#code_'+last).length == 0 ){
+   						$('#code').html("<span class ='widuu_code' id='code_"+data.num+"' data-id='"+data.num+"'>"+data.info+"</span>");
+   					}else{
+   						$('#code_'+last).after("<span class='widuu_code' id='code_"+data.num+"' data-id='"+data.num+"'>"+data.info+"</span>");
+   					}
+   				}
+   				
+   			}
+		});
+	}
+	var int = window.setInterval(ajax,500);  
+});
+</script>
+{@/block@}

@@ -1,0 +1,98 @@
+{@extend name="base" /@}
+{@block name="css"@}
+<link href="__CSS__bootstrap-editable.css" rel="stylesheet" />
+<link href="__CSS__buttons.css" rel="stylesheet">
+{@/block@}
+{@block name="content"@}
+<div class="pageheader">
+  <h2><i class="fa fa-server"></i> 容器列表 <span>容器管理、修改、添加、删除</span></h2>
+</div>
+<section class="wrapper wrapper-padding-th">
+<div class="row">
+	<div class="col-lg-12">
+	  	<section class="panel widget-shadow">
+	    	<header class="panel-heading form-inline">
+			<div class="form-group">
+	        	<input type="text" class="form-control search" placeholder="输入容器">
+	    	</div>
+	      	</header>
+	      	<div class="wrapper wrapper-mp20">
+	      	<table class="table">
+	        	<thead id="w_container">
+	          	<tr>
+	              	<th class="text-center"><i class="fa fa-cloud"></i> 容器名称</th>
+		            <th class="hidden-phone text-center"><i class="fa fa-user"></i> 创建用户</th>
+		            <th class="text-center"><i class="fa fa-bookmark"></i> 容器ID</th>
+		            <th class="text-center"><i class="fa fa-calendar"></i> 更新时间</th>
+		            <th class="text-center"><i class="fa fa-random"></i> 端口</th>
+		            <th class="text-center"><i class="fa fa-info-circle"></i> 状态</th>
+		            <th class="text-center"><button type="button" class="button button-glow button-border button-rounded button-primary button-small" data-trigger="ajax" href="{@:url('Container/updateContainer')@}" data-target="#update_container" data-type="post"><i class="fa fa-refresh"></i> 更新列表</button></th>
+	          	</tr>
+	          	</thead>
+	          	<tbody id="w_container">
+	          	{@volist name="list" id="container"@}
+					<tr class="w_container">
+						<td class="text-center"><a href="#"  id="container_{@$container.id@}" data-placement="right" data-type="text" data-pk="{@$container.id@}" data-url="{@:url('Container/rename')@}" data-title="容器重命名">{@$container.name@}</a></td>
+						<td class="text-center">{@$container.username@}</td>
+						<td class="text-center">{@$container.sha|substr=0,12@}</td>
+						<td class="text-center">{@$container.update_time|date="Y-m-d H:i:s",###@}</td>
+						<td class="text-center">{@$container.config|containerPort@}</td>
+						<td class="text-center">{@$container.status|containerStatus@}</td>
+						<td class="text-center">
+						  	<div class="btn-group">
+						  	<button type="button" data-trigger="ajax" href="{@:url('Container/manager')@}" data-param="{id:{@$container.id@},method:'{@$container.status? 'stop' : 'start'@}','uid':{@$container.uid@}}" data-target="#container_{@$container.id@}" data-type="post" class="button button-rounded button-small widget-shadow">{@$container.status? '停止' : '启动'@}</button>
+                                   <span class="button-dropdown" data-buttons="dropdown">
+								    <button class="button button-rounded button-small widget-shadow">
+								      <i class="fa fa-bars"></i>
+								    </button>
+								 
+								    <ul class="button-dropdown-list">
+								      <li style="width:100px;"><a href="#">查看</a></li>
+								      <li class="button-dropdown-divider"><a data-trigger="ajax" href="{@:url('Container/manager')@}" data-param="{id:{@$container.id@},method:'pause','uid':{@$container.uid@}}" data-target="#container_pause_{@$container.id@}" data-type="post">暂停</a></li>
+								      <li class="button-dropdown-divider"><a data-trigger="ajax" href="{@:url('Container/manager')@}" data-param="{id:{@$container.id@},method:'unpause','uid':{@$container.uid@}}" data-target="#container_unpause_{@$container.id@}" data-type="post">取消暂停</a></li>
+								      <li class="button-dropdown-divider">
+								        <a href="">删除</a>
+								      </li>
+								      <li class="button-dropdown-divider">
+								        <a href="{@:url('Container/export',['id'=>$container.id,'uid'=>$container.uid])@}" target="__blank__">导出</a>
+								      </li>
+								    </ul>
+								  </span>
+                             </div>
+						</td>
+					</tr>
+					{@/volist@}
+	         	</tbody>
+	      	</table>
+	      	<div class="row">
+	        	<div class="col-lg-12 text-center">
+	        		<div class="pagination" style="margin:0px;">
+	        		{@$list->render()@}
+	        		</div>
+	        	</div>
+	        </div>
+	        </div>
+	  </section>
+	</div>
+</div>
+</section>
+{@/block@}
+{@block name="script"@}
+<script src="__JS__bootstrap-editable.min.js"></script>
+<script src="__JS__ajax.js"></script>
+<script src="__JS__buttons.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("a[id^='container_']").editable({
+    	success: function(response, newValue) {
+    		if(response.status){
+        		$(this).html(newValue);
+    		}else{
+    			layer.msg(response.info,function(){})
+    			return false;
+    		}
+    	}
+    });
+});
+</script>
+{@/block@}

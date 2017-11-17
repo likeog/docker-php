@@ -1,0 +1,122 @@
+<header class="header white-bg">
+    <div class="sidebar-toggle-box">
+        <div data-original-title="Toggle Navigation" data-placement="right" class="fa fa-reorder tooltips"></div>
+    </div>
+    <!--logo start-->
+    <a href="{@:url('/dashboard/index')@}" class="logo">Docker<span>WM</span></a>
+    <!--logo end-->
+
+    <div class="top-nav ">
+        <!--search & user info start-->
+        <ul class="nav pull-right top-menu">
+            <li id="top_menu">
+                <!--  notification start -->
+        <ul class="nav top-menu  notify-row">
+            <!-- settings start -->
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <i class="fa fa-server"></i>
+                    <span class="badge bg-success">6</span>
+                </a>
+                <ul class="dropdown-menu extended tasks-bar">
+                    <div class="notify-arrow notify-arrow-green"></div>
+                    <li>
+                        <p class="green">You have 6 pending tasks</p>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="task-info">
+                                <div class="desc">Dashboard v1.3</div>
+                                <div class="percent">45%</div>
+                            </div>
+                            <div class="progress progress-striped active">
+                                <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                    <span class="sr-only">45% Complete</span>
+                                </div>
+                            </div>
+
+                        </a>
+                    </li>
+                    <li class="external">
+                        <a href="#">See All Tasks</a>
+                    </li>
+                </ul>
+            </li>
+            <!-- settings end -->
+            <!-- inbox dropdown start-->
+            <li id="header_inbox_bar" class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <i class="fa fa-envelope"></i>
+                    <span class="badge bg-important">5</span>
+                </a>
+                <ul class="dropdown-menu extended inbox">
+                    <div class="notify-arrow notify-arrow-red"></div>
+                    <li>
+                        <p class="red">You have 5 new messages</p>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="photo"><img alt="avatar" src="__IMG__avatar-mini.jpg"></span>
+                            <span class="subject">
+                            <span class="from">Jonathan Smith</span>
+                            <span class="time">Just now</span>
+                            </span>
+                            <span class="message">
+                                Hello, this is an example msg.
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">See all messages</a>
+                    </li>
+                </ul>
+            </li>
+            <!-- inbox dropdown end -->
+            <!-- notification dropdown start-->
+            <li id="header_notification_bar" class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+
+                    <i class="fa fa-bell"></i>
+                    <span class="badge bg-warning">7</span>
+                </a>
+                <ul class="dropdown-menu extended notification">
+                    <div class="notify-arrow notify-arrow-yellow"></div>
+                    <li>
+                        <p class="yellow">You have 7 new notifications</p>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="label label-info"><i class="icon-bullhorn"></i></span>
+                            Application error.
+                            <span class="small italic">10 mins</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">See all notifications</a>
+                    </li>
+                </ul>
+            </li>
+            <!-- notification dropdown end -->
+        </ul>
+        <!--  notification end -->
+            </li>
+            <!-- user login dropdown start-->
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                    <img alt="" src="{@$Think.session.face?$Think.session.face:'/public/static/img/docker_face.png'@}" width="30px;" height="30px;">
+                    <span class="username">{@$Think.session.username@}</span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu extended logout">
+                    <div class="log-arrow-up"></div>
+                    <li><a href="#"><i class="fa fa-suitcase"></i>个人中心</a></li>
+                    <li><a href="#"><i class="fa fa-cog"></i>系统设置</a></li>
+                    <li><a href="#"><i class="fa fa-bell"></i>系统提醒</a></li>
+                    <li><a href="{@:url('/signout')@}"><i class="fa fa-key"></i> 退 出</a></li>
+                </ul>
+            </li>
+            <!-- user login dropdown end -->
+        </ul>
+        <!--search & user info end-->
+    </div>
+</header>

@@ -1,0 +1,97 @@
+{@extend name="base" /@}
+{@block name="css"@}
+<link href="__CSS__bootstrap-editable.css" rel="stylesheet" />
+<link href="__CSS__buttons.css" rel="stylesheet">
+{@/block@}
+{@block name="content"@}
+<div class="pageheader">
+  <h2><i class="fa fa-server"></i> 容器列表 <span>容器管理、修改、添加、删除</span></h2>
+  <div class="breadcrumb-wrapper">
+    <span class="label"></span>
+    <ol class="breadcrumb">
+      <!-- <li><a href="index.html">Bracket</a></li>
+      <li class="active">Tables</li> -->
+    </ol>
+  </div>
+</div>
+<section class="wrapper wrapper-padding-th">
+<div class="row">
+	<div class="col-lg-12">
+	  	<section class="panel widget-shadow">
+	    	<header class="panel-heading">
+	        	<input type="text" class="form-control search" placeholder="输入容器">
+	      	</header>
+	      	<div class="wrapper wrapper-mp20">
+	      	<table class="table">
+	        	<thead id="w_container">
+	          	<tr>
+	              	<th class="text-center"><i class="fa fa-cloud"></i> 镜像名称</th>
+		            <th class="hidden-phone text-center"><i class="fa fa-bookmark"></i> 分支名称</th>
+		            <th class="text-center"><i class="fa fa-user"></i> 创建用户</th>
+		            <th class="text-center"><i class="fa fa-calendar"></i> 创建时间</th>
+		            <th class="text-center"><i class="fa fa-random"></i> 端口</th>
+		            <th class="text-center"><i class="fa fa-info-circle"></i> 尺寸</th>
+		            <th class="text-center"><button type="button" class="button button-glow button-border button-rounded button-primary button-small" data-trigger="ajax" href="{@:url('Image/updateImage')@}" data-target="#update_image" data-type="post"><i class="fa fa-refresh"></i> 更新列表</button></th>
+	          	</tr>
+	          	</thead>
+	          	<tbody id="w_container">
+	          	{@volist name="list" id="container"@}
+					<tr class="w_container">
+						<td class="text-center"><a href="#"  id="container_{@$container.id@}" data-placement="right" data-type="text" data-pk="{@$container.id@}" data-url="{@:url('Container/rename')@}" data-title="容器重命名">{@$container.name@}</a></td>
+						<td class="text-center">{@$container.tag@}</td>
+						<td class="text-center">{@$container.username@}</td>
+						<td class="text-center">{@$container.create_time|date="Y-m-d H:i:s",###@}</td>
+						<td class="text-center">{@$container.sha|substr=7@}</td>
+						<td class="text-center">{@$container.size|formatBytes@}</td>
+						<td class="text-center">
+						  	<div class="btn-group">
+						  	<button type="button" data-trigger="ajax" href="" data-param="" data-target="#image_{@$container.id@}" data-type="post" class="button button-rounded button-small widget-shadow">部署</button>
+                                   <span class="button-dropdown" data-buttons="dropdown">
+								    <button class="button button-rounded button-small widget-shadow">
+								      <i class="fa fa-bars"></i>
+								    </button>
+								    <ul class="button-dropdown-list">
+								      <li style="width:100px;"><a href="#">推送镜像</a></li>
+								      <li class="button-dropdown-divider">
+								        <a data-trigger="ajax" href="{@:url('Image/remove')@}" data-param="{id:{@$container.id@},uid:{@$container.uid@}}" data-target="#container_pause_{@$container.id@}" data-type="post">删除镜像</a>
+								      </li>
+								    </ul>
+								  </span>
+                             </div>
+						</td>
+					</tr>
+					{@/volist@}
+	         	</tbody>
+	      	</table>
+	      	<div class="row">
+	        	<div class="col-lg-12 text-center">
+	        		<div class="pagination" style="margin:0px;">
+	        		{@$list->render()@}
+	        		</div>
+	        	</div>
+	        </div>
+	        </div>
+	  </section>
+	</div>
+</div>
+</section>
+{@/block@}
+{@block name="script"@}
+<script src="__JS__bootstrap-editable.min.js"></script>
+<script src="__JS__ajax.js"></script>
+<script src="__JS__buttons.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("a[id^='container_']").editable({
+    	success: function(response, newValue) {
+    		if(response.status){
+        		$(this).html(newValue);
+    		}else{
+    			layer.msg(response.info,function(){})
+    			return false;
+    		}
+    	}
+    });
+});
+</script>
+{@/block@}

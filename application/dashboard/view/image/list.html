@@ -1,0 +1,76 @@
+{@extend name="base" /@}
+{@block name="title"@}镜像列表{@/block@}
+{@block name="js"@}
+<script src="__JS__layer/layer.js"></script>
+{@/block@}
+{@block name="content"@}
+<div id="page-wrapper">
+	<div class="main-page">
+		<div class="tables">
+			<h3 class="title1">镜像列表</h3>
+			<div class="panel-body widget-shadow">
+				<table class="table">
+					<thead>
+						<tr>
+						  <th></th>
+						  <th>容器名称</th>
+						  <th>容器标签</th>
+						  <th>创建用户</th>
+						  <th>镜像ID</th>
+						  <th>镜像尺寸</th>
+						  <th>创建时间</th>
+						</tr>
+					</thead>
+					<tbody>
+						{@volist name="list" id="container"@}
+						<tr>
+						  <th>
+						  	 <img src="__IMG__docker1.png" width="40px;" class="img-circle">
+						  </th>
+						  <th class="w_lheight50">{@$container.name@}</th>
+						  <td class="w_lheight50">{@$container.tag@}</td>
+						  <td class="w_lheight50">{@$container.username@}</td>
+						  <td class="w_lheight50">{@$container.sha@}</td>
+						  <td class="w_lheight50">{@$container.size|formatBytes@}</td>
+						  <td class="w_lheight50">{@$container.create_time|date="Y-m-d H:i:s",###@}</td>
+						</tr>
+						{@/volist@}
+					</tbody>
+				</table>
+				{@$list->render()@}
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$('#container>li>a').click(function(){
+		var that = $(this);
+		var id   = 'button_'+$(this).attr('data-id'); 
+		if( that.attr('data-target') ){
+			$.ajax({
+				type : 'POST',
+	   			url  : '/container/action.html',
+	   			data : { id : that.attr('data-id'),'action':that.attr('data-target') },
+	   			dataType : 'json',
+				beforeSend:function(){
+					layer.load(1);
+				},
+				success:function(data){
+					layer.closeAll();
+					if( data.status ){
+						layer.tips(data.info, '#'+id , {tips: [4, '#78BA32']});
+						setTimeout(window.location.reload(), 1000);
+					}else{
+						layer.msg(data.info, {icon: 5});
+					}
+				},
+				error:function(){
+					layer.msg('服务器错误请稍后重试！',function(){ layer.closeAll()});
+				}
+			})
+		}
+	});
+});
+</script>
+{@/block@}

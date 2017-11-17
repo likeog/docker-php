@@ -1,0 +1,72 @@
+<div class=" sidebar" role="navigation">
+    <div class="navbar-collapse">
+		<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+			<!--logo -->
+			<div class="logo">
+				<a href="{@:url('/dashboard/index')@}">
+					<h1>Docker</h1>
+					<span>AdminPanel</span>
+				</a>
+			</div>
+			<!--//logo-->
+			<ul class="nav" id="side-menu">
+				<li>
+					<a href="{@:url('/dashboard/index')@}" class="active"><i class="fa fa-home nav_icon"></i>管理中心</a>
+				</li>
+				<li class="">
+					<a href="#1"><i class="fa fa-server nav_icon"></i>容器管理 <span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level collapse">
+						<li>
+							<a href="{@:url('Container/list')@}">容器列表<span class="nav-badge-btm">111</span></a>
+						</li>
+						<li>
+							<a href="{@:url('Image/test')@}">Registry仓库</a>
+						</li>
+					</ul>
+					<!-- /nav-second-level -->
+				</li>
+				<li>
+					<a href="#2"><i class="fa fa-mixcloud nav_icon"></i>镜像管理<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level collapse">
+						<li>
+							<a href="{@:url('Image/list')@}">镜像列表 <span class="nav-badge-btm">05</span></a>
+						</li>
+						<li>
+							<a href="{@:url('Image/build')@}">构建镜像</a>
+						</li>
+					</ul>
+					<!-- //nav-second-level -->
+				</li>
+				<li>
+					<a href="/#正在开发中" class="chart-nav"><i class="fa fa-cloud nav_icon"></i>集群管理</a>
+				</li>
+				<li>
+					<a href="#/user"><i class="fa fa-users nav_icon"></i>用户管理<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level collapse">
+						<li>
+							<a href="{@:url('User/list')@}">用户管理<span class="nav-badge-btm">{@$numberCount@}</span></a>
+						</li>
+						<li>
+							<a href="{@:url('User/auth')@}">用户权限</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="setting.html"><i class="fa fa-cogs nav_icon"></i>系统设置<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level collapse">
+						<li>
+							<a href="{@:url('Setting/index')@}">基础设置</a>
+						</li>
+						<li>
+							<a href="{@:url('Setting/auth')@}">权限管理</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="{@:url('/signout')@}" class="chart-nav"><i class="fa fa-sign-out nav_icon"></i>退出系统</a>
+				</li>
+			</ul>
+			<!-- //sidebar-collapse -->
+		</nav>
+	</div>
+</div>

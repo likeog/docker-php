@@ -1,0 +1,68 @@
+<aside>
+    <div id="sidebar"  class="nav-collapse ">
+        <ul class="sidebar-menu">
+            <li class="active">
+                <a class="" href="{@:url('/dashboard/index')@}">
+                    <i class="fa fa-home"></i>
+                    <span>管理中心</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="fa fa-server"></i>
+                    <span>容器管理</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" href="{@:url('Container/lists')@}">容器列表</a></li>
+                    <li><a class="" href="buttons.html">Registry仓库</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="fa fa-mixcloud"></i>
+                    <span>镜像管理</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" href="{@:url('Image/lists')@}">镜像列表</a></li>
+                    <li><a class="" href="{@:url('Image/build')@}">构建镜像</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="" href="#正在开发中">
+                    <i class="fa fa-cloud"></i>
+                    <span>集群管理</span>
+                </a>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="fa fa-users"></i>
+                    <span>用户管理</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" href="{@:url('User/list')@}">用户管理</a></li>
+                    <li><a class="" href="{@:url('User/auth')@}">用户权限</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="fa fa-cogs"></i>
+                    <span>系统设置</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" href="{@:url('Setting/index')@}">基础设置</a></li>
+                    <li><a class="" href="{@:url('Setting/auth')@}">权限管理</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="" href="{@:url('/signout')@}">
+                    <i class="fa fa-sign-out"></i>
+                    <span>退出系统</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>

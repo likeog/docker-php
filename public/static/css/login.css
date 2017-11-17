@@ -1,0 +1,130 @@
+body{
+	background: repeat-x #3D8EB9;
+    background-image: linear-gradient(to bottom,#4ECDC4 0,#19B5FE 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF4ECDC4', endColorstr='#FF19B5FE', GradientType=0);
+    color: #fff;
+    height: 100vh;
+    width: 100vw;
+    /* color: #fff; */
+    fill: #fff;
+    overflow: hidden;
+    background-size: cover;
+    z-index:-1;
+}
+.login{
+	width: 100%;
+	padding-top:10%;
+	margin-right: auto;
+	margin-left: auto;
+
+}
+.account-container {
+    font-size: 14px;
+    position: relative;
+    width: 310px;
+    margin: 0 auto;
+    padding: 27px 20px 30px;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 15px 30px 0 rgba(0,0,1,.1);
+}
+.account-container .title {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 24px;
+    margin: 0;
+    padding: 0 20px;
+    text-align: center;
+    color: #595f69;
+}
+.account-container .header-line {
+    width: 120px;
+    height: 1px;
+    margin: 6px auto 14px;
+    border: 0;
+    background-color: #e4e7ed;
+}
+.dao-btn {
+    display: inline-block;
+    font-weight: 400;
+    border: 1px solid transparent;
+    outline: none!important;
+    background-image: none;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    box-sizing: "border-box";
+    padding: 8px 17px;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 4px;
+}
+.account-container form .form-group {
+    margin-bottom: 14px;
+}
+.account-container form .form-group label {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    display: block;
+    margin-bottom: 5px;
+    color: #9ba3af;
+}
+.account-container form .form-group input {
+    line-height: 1;
+    width: 100%;
+    height: 32px;
+    margin: 0;
+    padding: 0 10px;
+    -webkit-transition: all .25s ease;
+    transition: border .25s ease;
+    text-align: left;
+    color: #3d444f;
+    border: 1px solid #ccd1d9;
+    border-radius: 2px;
+    outline: 0;
+    background-color: #fff;
+    box-shadow: none;
+}
+.account-container form .form-group .captcha {
+    display: inline-block;
+    float: right;
+    width: 85px;
+    height: 32px;
+    border-radius: 2px;
+}
+.account-container form .form-group input.has-captcha {
+    width: calc(100% - 95px);
+    width: -webkit-calc(100% - 95px);
+    width: -moz-calc(100% - 95px);
+}
+.login-logo {
+    margin-bottom: 30px;
+    text-align: center;
+}
+@font-face{
+  font-family:Comfortaa;
+  src:url(../fonts/Comfortaa-Light.ttf);
+  font-weight:300;
+  font-style:normal
+}
+
+#logo{
+	position: relative;
+	font-family: Comfortaa;
+    font-weight: 700;
+    font-size: 24px;
+    color:#fff;
+    top: -26px;
+    padding-left: 18px;
+}
+.botton-custom{
+    width:270px;
+    margin-top:20px;
+    margin-bottom:10px;
+}

@@ -1,0 +1,62 @@
+{@extend name="base" /@}
+{@block name="content"@}
+<div class="pageheader">
+  <h2><i class="fa fa-server"></i> 镜像构建日志 <span></span></h2>
+  <div class="breadcrumb-wrapper">
+    <span class="label"></span>
+    <ol class="breadcrumb">
+      <!-- <li><a href="index.html">Bracket</a></li>
+      <li class="active">Tables</li> -->
+    </ol>
+  </div>
+</div>
+<section class="wrapper wrapper-padding-th">
+<div class="row">
+	<div class="col-lg-12">
+	  	<section class="panel widget-shadow">
+	      	<div class="wrapper wrapper-mp20">
+				<section class="panel"  style="padding-top:40px;">
+	                <header class="panel-heading">
+	                    镜像构建日志
+	                </header>
+                  	<div class="panel-body" >
+                      	<div class="col-md-12 blank-page scroll">
+							<pre id="code" data-spy="scroll" class="widget-shadow scroll" style="background-color:#101829;color:#fff;height:540px;overflow:auto; position: relative;">加载中</pre>
+					  	</div>
+                  	</div>
+              	</section>
+	        </div>
+	  </section>
+	</div>
+</div>
+</section>
+{@/block@}
+{@block name="script"@}
+<script type="text/javascript">
+$(function(){
+	function ajax(){
+		var num = $(".widuu_code").last().attr('data-id');
+		var data_id = num ? num : 0;
+		$.ajax({
+			type : 'POST',
+   			url  : '{@:url("logs")@}',
+   			data : {log:'{@$log@}',num:data_id,status:'{@$status@}'},
+   			dataType : 'json',
+   			success : function(data){
+   				if( data.status ){
+   					console.log(data);
+   					var last = parseInt(data.num)-1;
+   					if(data.flag) clearInterval(int);
+   					if( $('#code_'+last).length == 0 ){
+   						$('#code').html("<span class ='widuu_code' id='code_"+data.num+"' data-id='"+data.num+"'>"+data.info+"</span>");
+   					}else{
+   						$('#code_'+last).after("<span class='widuu_code' id='code_"+data.num+"' data-id='"+data.num+"'>"+data.info+"</span>");
+   					}
+   				}
+   			}
+		});
+	}
+	var int = window.setInterval(ajax,500);  
+});
+</script>
+{@/block@}

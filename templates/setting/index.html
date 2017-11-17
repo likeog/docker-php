@@ -1,0 +1,127 @@
+{@extend name="base" /@}
+{@block name="css"@}
+<link href="__CSS__buttons.css" rel="stylesheet">
+<link href="__CSS__setting.css" rel="stylesheet">
+<link href="__JS__uploadify/uploadify.css" rel="stylesheet">
+{@/block@}
+{@block name="content"@}
+<div class="pageheader">
+  <h2><i class="fa fa-cogs"></i> 系统设置</h2>
+</div>
+<section class="wrapper wrapper-padding-th">
+<div class="row">
+<div class="contentpanel">
+	<div class="panel panel-default">
+        <div class="panel-heading">
+          <h1 class="panel-title">系统设置</h1>
+        </div>
+        <div class="panel-body panel-body-nopadding">
+          
+          <form class="form-horizontal form-bordered">
+            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">网站名称</label>
+              <div class="col-sm-6">
+                <input type="text" name="web_title" class="form-control" placeholder="网站名称" value="{@$config.web_title|default=''@}">
+              </div>
+            </div>
+            
+            <div class="form-group">
+				  <label class="col-sm-3 control-label">关&nbsp;&nbsp;键&nbsp;&nbsp;字</label>
+				  <div class="col-sm-6">
+					 <input type="text" class="form-control" name="web_keywords" placeholder="网站关键字" value="{@$config.web_keywords|default=''@}">
+				  </div>
+				</div>
+            
+        <div class="form-group">
+				  <label class="col-sm-3 control-label">接口类型</label>
+				  <div class="col-sm-6">
+					  <div class="radio-inline">
+              <label><input type="radio" checked="" name="stream_type" value="1" {@in name="config.stream_type" value="1"@}checked="true"{@/in@}>UNIX SOCK</label>
+            </div>
+						<div class="checkbox-inline">
+              <label>
+                <input type="radio" name="stream_type" value="2" {@in name="config.stream_type" value="2"@}checked="true"{@/in@}> TCP
+                </label>
+            </div>
+            <div class="checkbox-inline">
+              <label>
+                <input type="radio" name="stream_type" value="3" {@in name="config.stream_type" value="3"@}checked="true"{@/in@}> SSL
+                </label>
+            </div>
+				  </div>
+				</div>
+        <div class="form-group upload_ssl" style="display:none;">
+              <label class="col-sm-3 control-label">接口地址</label>
+              <div class="col-sm-6">
+                <div id="queue"></div>
+                <input type="file" name="certs" id="certs" class="form-control "/>
+                <span class="help-block">请上传证书信息，压缩包格式( <code>tar/tar.gz/zip</code> )，包含文件<code>client_ca.pem</code>、<code>client_cert.pem</code>和<code>client_key.pem</code></span>
+              </div>
+        </div>    
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">接口地址</label>
+              <div class="col-sm-6">
+              	<div class="input-group">
+	               <input type="text" class="form-control" name="remote_socket" placeholder="Docker 服务器连接接口地址" value="{@$config.remote_socket|default=''@}">
+					
+					       <div class="input-group-btn">
+	               		<a id="add-sticky" class="button button-primary" href="javascript:;">测试连接</a>
+	                </div>
+              	</div>
+                <span class="help-block">[Unix类型]:（ <code>/var/run/docker.sock</code> ）或者 [Tcp类型]:（ <code>192.168.1.1:2375</code> ）, [SSL类型]：需要上传证书 ( <code>192.168.1.1:2376</code> )</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">仓库地址</label>
+              <div class="col-sm-6">
+               		<input type="text" class="form-control"  name="registry_path" placeholder="仓库地址" value="{@$config.registry_path|default=''@}"> 
+               		<span class="help-block">镜像仓库地址</span> 
+
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">仓库账号</label>
+              <div class="col-sm-6">
+                  <input type="text" class="form-control"  name="registry_username" placeholder="仓库账号" value="{@$config.registry_username|default=''@}"> 
+                  <span class="help-block">镜像仓库用户名，没有请留空</span> 
+
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">仓库密码</label>
+              <div class="col-sm-6">
+                  <input type="text" class="form-control"  name="registry_path" placeholder="仓库密码" value="{@$config.registry_password|default=''@}"> 
+                  <span class="help-block">镜像仓库密码，没有请留空</span>
+              </div>
+            </div>
+          
+        </div><!-- panel-body -->
+        <div class="panel-footer">
+			 <div class="row">
+				<div class="col-sm-6 col-sm-offset-3">
+          <input type="hidden" name="id" value="{@$config.id|default=''@}" /> 
+          <input type="hidden" name="is_ssl" value="{@$config.is_ssl|default=0@}" /> 
+          <input type="hidden" name="uid" value="{@$uid@}" /> 
+				  <button class="button button-action" type="submit">更 新</button>&nbsp;
+				</div>
+			 </div>
+		  </div>
+        </div>
+         </form>
+      </div>
+</div>
+</section>
+{@/block@}
+{@block name="script"@}
+<script type="text/javascript">
+  var DOCKER_PATH = {
+    JSPATH      : "__JS__",
+    UPLOAD_PATH : "{@:url('Setting/upload',['id'=>$uid])@}",
+    PING_PATH   : "{@:url('Setting/ping',['id'=>$uid])@}",
+    FROM_ACTION : "{@:url('Setting/index')@}"
+  }
+</script>
+<script src="__JS__uploadify/jquery.uploadify.min.js"></script>
+<script src="__JS__setting.js"></script>
+{@/block@}

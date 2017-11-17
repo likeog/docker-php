@@ -1,0 +1,109 @@
+{@extend name="base" /@}
+{@block name="title"@}系统设置{@/block@}
+{@block name="js"@}
+<script src="__JS__layer/layer.js"></script>
+{@/block@}
+{@block name="content"@}
+<!-- main content start-->
+<div id="page-wrapper">
+	<div class="main-page">
+		<div class="forms">
+			<div class=" form-grids row form-grids-right">
+				<div class="widget-shadow " data-example-id="basic-forms"> 
+					<div class="form-title">
+						<h4>系统设置</h4>
+					</div>
+					<div class="form-body">
+						<form class="form-horizontal" action="{@:url('/setting')@}" method="post"> 
+							<div class="form-group"> 
+								<label class="col-sm-2 control-label">网站名称</label> 
+								<div class="col-sm-9"> 
+									<input type="text" name="web_title" class="form-control" placeholder="网站名称" value="{@$config.web_title|default=''@}"> 
+								</div> 
+							</div>
+							<div class="form-group"> 
+								<label class="col-sm-2 control-label">关&nbsp;&nbsp;键&nbsp;&nbsp;字</label> 
+								<div class="col-sm-9"> 
+									<input type="text" class="form-control" name="webkey" placeholder="网站关键字" value="{@$config.web_keywords|default=''@}"> 
+								</div> 
+							</div>  
+							<div class="form-group">
+								<label for="checkbox" class="col-sm-2 control-label">接口类型</label>
+								<div class="col-sm-8">
+									<div class="radio-inline"><label><input type="radio" checked="" name="stream_type" value="1" {@in name="config.stream_type" value="1"@}checked="true"{@/in@}>UNIX SOCK</label></div>
+									<div class="checkbox-inline"><label><input type="radio" name="stream_type" value="2" {@in name="config.stream_type" value="2"@}checked="true"{@/in@}> TCP</label></div>
+									<div class="checkbox-inline"><label><input type="radio" name="stream_type" value="3" {@in name="config.stream_type" value="3"@}checked="true"{@/in@}> SSL</label></div>
+								</div>
+							</div>
+							<div class="form-group"> 
+								<label  class="col-sm-2 control-label">接口地址</label> 
+								<div class="col-sm-9"> 
+									<input type="text" class="form-control" name="remote_socket" placeholder="Docker 服务器连接接口地址" value="{@$config.remote_socket|default=''@}">
+									<span class="help-block">[Unix类型]:（ /var/run/sock.docker ）或者 [Tcp类型]:（ 192.168.1.1:2375 ）</span>  
+								</div> 
+							</div>
+							<div class="form-group"> 
+								<label for="inputEmail3" class="col-sm-2 control-label">仓库地址</label> 
+								<div class="col-sm-9"> 
+									<input type="text" class="form-control"  name="registry_path" placeholder="容器仓库HTTP地址" value="{@$config.registry_path|default=''@}"> 
+									<span class="help-block">镜像仓库地址</span> 
+								</div> 
+							</div>
+							<div class="form-group"> 
+								<label for="inputEmail3" class="col-sm-2 control-label">仓库账号</label> 
+								<div class="col-sm-9"> 
+									<input type="text" class="form-control"  name="registry_path" placeholder="容器仓库HTTP地址" value="{@$config.registry_path|default=''@}"> 
+									<span class="help-block">镜像仓库用户名，没有请留空</span> 
+								</div> 
+							</div>
+							<div class="form-group"> 
+								<label for="inputEmail3" class="col-sm-2 control-label">仓库密码</label> 
+								<div class="col-sm-9"> 
+									<input type="text" class="form-control"  name="registry_path" placeholder="容器仓库HTTP地址" value="{@$config.registry_path|default=''@}"> 
+									<span class="help-block">镜像仓库密码，没有请留空</span> 
+								</div> 
+							</div>
+							<br/> 
+							<div class="col-sm-offset-5">  
+								<button type="submit" class="btn btn-success" style="width:200px;">提&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+							</div> 
+						</form> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$('form').submit(function(){
+		var that = $(this); 
+		$.ajax({
+			type : 'POST',
+   			url  : that.attr('action'),
+   			data : that.serialize(),
+   			dataType : 'json',
+   			beforeSend : function(){
+   				layer.load(1);
+   			},
+			beforeSend:function(){
+				layer.load(1);
+			},
+			success:function(data){
+				layer.closeAll();
+				if( data.status ){
+					layer.msg(data.info, {icon: 4});
+					setTimeout(window.location.reload(), 1000);
+				}else{
+					layer.msg(data.info,function(){});
+				}
+			},
+			error:function(){
+				layer.msg('服务器错误请稍后重试！',function(){ layer.closeAll()});
+			}
+		});
+		return false;
+	});
+});
+</script>
+{@/block@}

@@ -1,0 +1,101 @@
+{@extend name="base" /@}
+{@block name="title"@}构建镜像{@/block@}
+{@block name="js"@}
+<script src="__JS__layer/layer.js"></script>
+{@/block@}
+{@block name="content"@}
+<div id="w_header">
+  <h2 id="w_h2">新建项目</h2>
+  <small style="color:#a0abbf;line-height:30px;">通过使用书写 `Dockerfile` 指令来完成镜像的构建</small>
+</div>
+<!-- main content start-->
+<div id="page-wrapper">
+	<div class="main-page">
+		<div class="forms">
+			<div class=" form-grids row form-grids-right">
+				<div class="widget-shadow " data-example-id="basic-forms"> 
+					<div class="form-body">
+						<form class="form-horizontal" action="" method="post"> 
+							<div class="form-group"> 
+								<label class="col-sm-2 control-label">镜像名称</label> 
+								<div class="col-sm-9"> 
+									<input type="text" name="name" class="form-control" placeholder="centos" id="imagename"> 
+								</div> 
+							</div>
+							<div class="form-group"> 
+								<label class="col-sm-2 control-label">镜像标签</label> 
+								<div class="col-sm-9"> 
+									<input type="text" class="form-control" name="tag" placeholder="latest" > 
+								</div> 
+							</div>  
+							<div class="form-group"> 
+								<label  class="col-sm-2 control-label">仓库地址</label> 
+								<div class="col-sm-9"> 
+									<input type="text" class="form-control" name="registry" placeholder="Docker 服务器连接接口地址">
+									<span class="help-block">下载镜像仓库地址（http://xxxxx.m.daocloud.io）</span>  
+								</div> 
+							</div>
+							<div class="form-group"> 
+								<label for="inputEmail3" class="col-sm-2 control-label">仓库账号</label> 
+								<div class="col-sm-9"> 
+									<input type="text" class="form-control"  name="username" placeholder="账号" > 
+									<span class="help-block">镜像仓库用户名，如果需要登录</span> 
+								</div> 
+							</div>
+							<div class="form-group"> 
+								<label for="inputEmail3" class="col-sm-2 control-label">仓库密码</label> 
+								<div class="col-sm-9"> 
+									<input type="text" class="form-control"  name="password" placeholder="密码" >
+									<span class="help-block">镜像仓库用户名，如果需要登录</span> 
+								</div> 
+							</div>
+							<div class="form-group">
+								<label for="checkbox" class="col-sm-2 control-label">Dockerfile</label>
+								<div class="col-sm-9">
+									<textarea class="form-control" name="dockerfile" id="dockerfile" rows="20" ></textarea>
+								</div>
+							</div>
+							<input name="hash" value="{@:time()@}" type="hidden" />
+							<br/> 
+							<div class="col-sm-offset-5">  
+								<button type="submit" id="submit" class="btn btn-success" style="width:200px;">构建镜像</button>
+							</div> 
+						</form> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$('form').submit(function(){
+		var that = $(this);
+		var name = $("input[name='name']").val();
+		var tag  = $("input[name='tag']").val();
+		if( tag === '' ) tag = 'latest';
+		if(  name == '' ){
+			$('#imagename').focus();
+			layer.msg('镜像名称不能为空',function(){});
+			return false;
+		}
+		if( $("textarea[name='dockerfile']").val() == '' ){
+			layer.msg('Dockerfile内容不能为空',function(){});
+			$('#dockerfile').focus();
+			return false;
+		}    
+		$.ajax({
+			type : 'POST',
+   			url  : '{@:url('/image/image')@}',
+   			data : that.serialize(),
+   			dataType : 'json',
+   			beforeSend : function(){
+   				$('#submit').attr('disabled',true);
+   				window.location.href='/image/logs/name/'+name+'/tag/'+tag+'.html';
+   			}
+		});
+		return false;
+	});
+});
+</script>
+{@/block@}
